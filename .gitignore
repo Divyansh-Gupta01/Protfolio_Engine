@@ -1,0 +1,33 @@
+# ===============================
+# Python
+# ===============================
+__pycache__/
+*.pyc
+*.pyo
+
+# ===============================
+# Jupyter Notebooks
+# ===============================
+.ipynb_checkpoints/
+
+# ===============================
+# Data (do NOT upload datasets)
+# ===============================
+data/raw/
+data/processed/
+
+# keep small sample data if you want
+!data/samples/
+
+# ===============================
+# Environment / secrets
+# ===============================
+.env
+.venv/
+venv/
+
+# ===============================
+# OS junk
+# ===============================
+.DS_Store
+Thumbs.db
