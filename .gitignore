@@ -10,11 +10,12 @@ __pycache__/
 # ===============================
 .ipynb_checkpoints/
 
+
 # ===============================
 # Data (do NOT upload datasets)
 # ===============================
 !data/raw/
-!data/processed/
+data/processed/
 
 # keep small sample data if you want
 !data/samples/
