@@ -5,22 +5,22 @@ import os
 import yfinance as yf
 
 
-def download_ticker(file_path, processed_file_path):
+def download_ticker(file_path, processed_file_path, suffix):
 
     file_path = os.path.join("data", "raw", file_path)
     processed_file_path = os.path.join("data", "raw", processed_file_path)
 
     df = pd.read_csv(file_path, usecols=["Symbol", "Industry"])
 
-    df["Symbol"] = df["Symbol"] + ".NS"
+    df["Symbol"] = df["Symbol"] + suffix
 
     df.to_csv(processed_file_path)
     print(df)
 
 
-def download_ticker_data(ticker_file):
-    Base_DIR = "data/processed"
-    tikcer_file = os.path.join("data", "raw", ticker_file)
+def download_ticker_data(ticker_file, suffix):
+    Base_DIR = "data/raw"
+    tikcer_file = os.path.join(Base_DIR, ticker_file)
 
     df = pd.read_csv(tikcer_file)
 
@@ -38,6 +38,9 @@ def download_ticker_data(ticker_file):
             continue
 
         data.columns = data.columns.get_level_values(0)
+        symbol = symbol.replace(suffix, "")
+
+        data["Ticker"] = symbol
         data.to_parquet(
             os.path.join(Base_DIR, f"{symbol}.parquet"),
             engine="pyarrow",
@@ -51,7 +54,7 @@ def download_ticker_data(ticker_file):
 # -----------> (name of file to be read ,  name of file as to  write )
 
 
-download_ticker("ind_nifty50list.csv", "nifty50_ticker.csv")
+download_ticker("ind_nifty50list.csv", "nifty50_ticker.csv", ".NS")
 
 
-download_ticker_data("nifty50_ticker.csv")
+download_ticker_data("nifty50_ticker.csv", ".NS")
